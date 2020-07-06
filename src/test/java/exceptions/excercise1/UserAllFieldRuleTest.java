@@ -8,6 +8,7 @@ import org.junit.runners.Parameterized;
 import java.util.Arrays;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.fail;
 
 @RunWith(Parameterized.class)
 public class UserAllFieldRuleTest {
@@ -29,7 +30,7 @@ public class UserAllFieldRuleTest {
     // when
     try {
       User user = User.create(login, password, firstname, email);
-
+      fail("Should thrown exception");
       // then
     } catch (Exception e) {
       assertThat(e).isInstanceOf(IllegalArgumentException.class);
