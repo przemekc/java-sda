@@ -38,3 +38,10 @@ Sala 1: 3 krzesla, 4 stoly, 1 tablica
 Sala 2: 6 krzesel, 6 stolow, brak tablicy
 
 Zaprezentuj dane sali: nazwe i numer oraz poszczegolne elementy wyposazenia korzystajac z metody getListaWYposazenia()
+
+# Zadanie 2
+
+Szachy
+
+Klasy figur: pion, skoczek, goniec, wieza, krol, hetman
+

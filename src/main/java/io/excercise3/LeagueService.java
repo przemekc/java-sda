@@ -24,21 +24,24 @@ public class LeagueService {
   public void save(League league) {
     LOGGER.info("Saving league to file " + DB);
     // object mapper ma mozliwosc zapisu obiektu Leage
-    // ponizszy kod persystuje w pliku poszczegolne obiekty Game aby pkazac zapis do pliku przy uzyciu BufferedWritera
+    // ponizszy kod persystuje (zapisuje) w pliku poszczegolne obiekty Game aby pkazac zapis do pliku przy uzyciu BufferedWritera
     try (BufferedWriter writer = Files.newBufferedWriter(DB, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING)) {
       for (Game game : league.getGames()) {
         String str = objectMapper.writeValueAsString(game); // transformacja (serilizacja) do stringa (JSON format) obiektu Game
+        // str wyglada np tak {"gameA":"Chicago Bulls","gameB":"Miami Heat","scoreA":96,"scoreB":95}
         writer.write(str);
         writer.newLine();
       }
     } catch (IOException e) {
       LOGGER.error("Error while saving league", e);
-      throw new RuntimeException("Error while saving file", e);
+      throw new RuntimeException("Error while saving file", e); // NIE UZYWAC BO FEEEE
     }
   }
 
   public League loadFromFile() {
     LOGGER.info("Loding league from file " + DB);
+    // wczytanie games oddelegowane do osobnej metody
+    // SOLID
     return new League(readAllGames());
   }
 
@@ -49,13 +52,15 @@ public class LeagueService {
       List<Game> games = new ArrayList<>();
       String line;
       while ((line = reader.readLine()) != null) {
+        // zawartosc line - {"gameA":"Chicago Bulls","gameB":"Miami Heat","scoreA":96,"scoreB":95}
         Game game = objectMapper.readValue(line, Game.class); // transformacja (deserializacja) ze stringa (JSON format) do obiektu Game
+        // Game game = new Game(line);
         games.add(game);
       }
       return games;
     } catch (IOException e) {
       LOGGER.error("Error while saving league", e);
-      throw new RuntimeException("Error while saving file", e);
+      throw new RuntimeException("Error while saving file", e); // NIE UZYWAC W TAKI SPOSOB
     }
   }
 }
