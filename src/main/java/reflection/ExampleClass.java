@@ -1,4 +1,4 @@
-package reflectios;
+package reflection;
 
 import static java.lang.System.out;
 

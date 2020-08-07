@@ -1,4 +1,4 @@
-package reflectios;
+package reflection;
 
 import java.lang.reflect.Method;
 
